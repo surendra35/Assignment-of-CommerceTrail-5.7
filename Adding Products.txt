@@ -1,0 +1,14 @@
+# ImpEx for Importing Prices into Merchandise Store  
+"#% impex.setLocale( Locale.GERMAN )"
+   
+# Macros / Replacement Parameter definitions
+$productCatalog=hybrisProductCatalog
+    
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+    
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+  
+INSERT_UPDATE MerchandiseProduct;code[unique=true];$prices;$approved;$catalogVersion;$taxGroup
+ ;AD0001;5,00 GBP, 5,50 EUR, 7,48 USD, 765,33 JPY

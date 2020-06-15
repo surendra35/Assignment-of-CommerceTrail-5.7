@@ -1,0 +1,23 @@
+# Macros / Replacement Parameter definitions
+$productCatalog=hybrisProductCatalog
+# Language
+$lang=en 
+  
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=jp-vat-full]
+  
+# Insert Products
+INSERT_UPDATE MerchandiseProduct;code[unique=true];$supercategories;name[lang=$lang];$catalogVersion;$approved;Color(code);
+;AD0001;900;Test Product;;;RED
+;AD0002;900;Test2 Product;;;GREEN
+;AD0003;900;Test3 Product;;;BLUE
+;AD0004;900;Test4 Product;;;GREEN
+;AD0005;900;Test5 Product;;;BLUE
+;AD0006;900;Test6 Product;;;RED
+;AD0007;900;Test7 Product;;;BLUE
+;AD0008;900;Test8 Product;;;RED
+;AD0009;900;Test9 Product;;;GREEN
+;AD0010;900;Test10 Product;;;GREEN

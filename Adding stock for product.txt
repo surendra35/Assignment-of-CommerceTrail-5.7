@@ -1,0 +1,19 @@
+# ImpEx for Importing Products Stock Levels and Warehouses into Merchandise
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=hybrisProductCatalog
+ 
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+ 
+INSERT_UPDATE Vendor;code[unique=true]
+;hybris;Hybris;Hybris
+ 
+INSERT_UPDATE Warehouse;code[unique=true];vendor(code);default[default=true]
+;warehouse_c;hybris;
+ 
+INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(code);maxPreOrder;maxStockLevelHistoryCount;overSelling;preOrder;productCode[unique=true];reserved
+;250;warehouse_c;forceInStock;0;-1;0;0;AD0010;0
+
+ 
+INSERT_UPDATE Product;code[unique=true];$catalogVersion;stockLevels(productCode,warehouse(code));vendors(code)
+;AD0010;;AD0010:warehouse_c;hybris
